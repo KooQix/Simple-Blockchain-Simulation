@@ -5,6 +5,9 @@ public class Blockchain {
 
 	private Block lastBlock;
 
+	/**
+	 * Create a new blockchain
+	 */
 	public Blockchain() {
 		this.lastBlock = null;
 	}

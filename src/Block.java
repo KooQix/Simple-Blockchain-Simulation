@@ -23,7 +23,7 @@ public class Block {
 	}
 
 	/**
-	 * Concatenate id, nonce and data
+	 * Concatenate id, nonce, data and previous block hash
 	 * 
 	 * @return
 	 */
