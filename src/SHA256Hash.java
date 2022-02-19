@@ -24,7 +24,7 @@ public class SHA256Hash {
 	}
 
 	/**
-	 * Converts an bytes array to a hex string
+	 * Converts a bytes array into a hex string
 	 * 
 	 * @param hash
 	 * @return

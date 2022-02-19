@@ -46,7 +46,7 @@ public class Block {
 	 * 
 	 * @return boolean
 	 */
-	private boolean hasValidHash(String hash) {
+	private boolean isValidHash(String hash) {
 		if (hash == null || hash.length() == 0) {
 			return false;
 		}
@@ -60,10 +60,10 @@ public class Block {
 	 */
 	public void mine() {
 		System.out.println("Mining block " + this.getId() + "...");
-		if (!hasValidHash(this.hash))
+		if (!isValidHash(this.hash))
 			this.nonce = 0;
 
-		while (!hasValidHash(this.hash)) {
+		while (!isValidHash(this.hash)) {
 			this.nonce++;
 			this.hash = this.getHash();
 		}
@@ -75,7 +75,7 @@ public class Block {
 	 * @return
 	 */
 	public boolean isValid() {
-		return this.hasValidHash(this.hash);
+		return this.isValidHash(this.hash);
 	}
 
 	/**
