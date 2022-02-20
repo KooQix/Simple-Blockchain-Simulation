@@ -1,5 +1,8 @@
+package blockchain;
 
 import javax.management.InvalidAttributeValueException;
+
+import miners.Miners;
 
 public class Blockchain {
 
@@ -28,21 +31,32 @@ public class Blockchain {
 	 * 
 	 * @param block
 	 * @throws InvalidAttributeValueException
+	 * @throws InterruptedException
 	 */
-	public void addBlock(String data) throws InvalidAttributeValueException {
+	public void addBlock(String data) throws InvalidAttributeValueException, InterruptedException {
 
 		if (lastBlock != null && data.equals(lastBlock.getData())) {
 			throw new InvalidAttributeValueException("ERROR: Block is a duplicate");
 		}
 
 		int id = this.lastBlock == null ? 0 : this.lastBlock.getId();
+
 		Block block = new Block(id + 1, data);
 
 		// Link new last block with old last block
 		block.setPreviousBlock(this.lastBlock);
+		System.out.println("\n\n\n\t##### New block to add #####");
+		System.out.println(block);
 
 		// Add the block to the blockchain
-		block.mine();
+		Miners.mine(block);
+
+		// Since we're here, the block should give a valid hash
+		if (!Block.isValidHash(block.getHash())) {
+			System.out.println("Block not valid, not added");
+			return;
+		}
+		// Block is valid, add it the blockchain
 		this.lastBlock = block;
 	}
 
@@ -83,6 +97,7 @@ public class Blockchain {
 		}
 
 		StringBuilder sb = new StringBuilder();
+		sb.append("\nBlockchain:\n");
 
 		Block block = this.lastBlock;
 		while (block != null) {

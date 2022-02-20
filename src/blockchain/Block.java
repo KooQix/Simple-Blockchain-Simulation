@@ -1,8 +1,12 @@
+package blockchain;
+
 import java.util.Objects;
+
+import resources.SHA256Hash;
 
 public class Block {
 	private int id;
-	private int nonce;
+	private long nonce;
 	private String data;
 	private String hash;
 	private Block previousBlock;
@@ -20,6 +24,16 @@ public class Block {
 		this.nonce = 0;
 		this.previousBlock = null;
 		this.hash = this.getHash();
+	}
+
+	/**
+	 * Create a copy of the block
+	 * 
+	 * @param block
+	 */
+	public Block(Block block) {
+		this(block.getId(), block.getData());
+		this.setPreviousBlock(block.getPreviousBlock());
 	}
 
 	/**
@@ -46,27 +60,13 @@ public class Block {
 	 * 
 	 * @return boolean
 	 */
-	private boolean isValidHash(String hash) {
+	public static boolean isValidHash(String hash) {
 		if (hash == null || hash.length() == 0) {
 			return false;
 		}
-		char c = this.getHash().charAt(0);
+		char c = hash.charAt(0);
 
 		return (c == '0') && (c == hash.charAt(1)) && (c == hash.charAt(2)) && (c == hash.charAt(3));
-	}
-
-	/**
-	 * Get nonce that gets a valid hash
-	 */
-	public void mine() {
-		System.out.println("Mining block " + this.getId() + "...");
-		if (!isValidHash(this.hash))
-			this.nonce = 0;
-
-		while (!isValidHash(this.hash)) {
-			this.nonce++;
-			this.hash = this.getHash();
-		}
 	}
 
 	/**
@@ -99,8 +99,15 @@ public class Block {
 	/**
 	 * @return Brute force nonce until hash is valid and return the nonce
 	 */
-	public int getNonce() {
+	public long getNonce() {
 		return nonce;
+	}
+
+	/**
+	 * @param nonce the nonce to set
+	 */
+	public void setNonce(long nonce) {
+		this.nonce = nonce;
 	}
 
 	/**
@@ -143,7 +150,7 @@ public class Block {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("{");
+		sb.append("{\n");
 		sb.append("\tid: " + getId() + "\n");
 		sb.append("\tnonce: " + getNonce() + "\n");
 		sb.append("\tdata: " + getData() + "\n");

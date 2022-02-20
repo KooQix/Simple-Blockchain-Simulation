@@ -1,3 +1,5 @@
+import blockchain.Block;
+import blockchain.Blockchain;
 
 public class App {
 	public static void main(String[] args) throws Exception {
@@ -28,7 +30,8 @@ public class App {
 
 		//////////////////// Tempering the first blockchain \\\\\\\\\\\\\\\\\\\\
 
-		System.out.println("\n\nModifying the blockchain...");
+		Thread.sleep(8000);
+		System.out.println("\n\n\n\n##### Modifying the blockchain... #####");
 
 		Block block = chain.getBlock(2);
 
