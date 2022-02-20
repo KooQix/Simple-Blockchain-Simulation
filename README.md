@@ -3,3 +3,7 @@
 ### Get stated
 
     cd bin && java App
+
+### More information
+
+    For a visual description of the blockchain, check out: https://andersbrownworth.com/blockchain/

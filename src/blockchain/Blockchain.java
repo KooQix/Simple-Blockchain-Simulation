@@ -45,7 +45,7 @@ public class Blockchain {
 
 		// Link new last block with old last block
 		block.setPreviousBlock(this.lastBlock);
-		System.out.println("\n\n\n\t##### New block to add #####");
+		System.out.println("\n\n\n\n##### New block to add #####");
 		System.out.println(block);
 
 		// Add the block to the blockchain
@@ -57,6 +57,7 @@ public class Blockchain {
 			return;
 		}
 		// Block is valid, add it to the blockchain
+		System.out.println("Adding block to the blockchain");
 		this.lastBlock = block;
 	}
 

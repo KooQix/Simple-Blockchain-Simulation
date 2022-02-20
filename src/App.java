@@ -11,19 +11,19 @@ public class App {
 		Blockchain chain = new Blockchain();
 
 		chain.addBlock("First block data");
-		System.out.println("\n" + chain);
+		System.out.println(chain);
 		Thread.sleep(2000);
 
 		chain.addBlock("Second block data");
-		System.out.println("\n" + chain);
+		System.out.println(chain);
 		Thread.sleep(2000);
 
 		chain.addBlock("Third block data");
-		System.out.println("\n" + chain);
+		System.out.println(chain);
 		Thread.sleep(2000);
 
 		chain.addBlock("Forth block data");
-		System.out.println("\n" + chain);
+		System.out.println(chain);
 
 		// Create a copy of the blockchain
 		Blockchain copy = new Blockchain(chain);
@@ -31,7 +31,7 @@ public class App {
 		//////////////////// Tempering the first blockchain \\\\\\\\\\\\\\\\\\\\
 
 		Thread.sleep(8000);
-		System.out.println("\n\n\n\n##### Modifying the blockchain... #####");
+		System.out.println("\n\n\n\n\n##### Modifying the blockchain... #####");
 
 		Block block = chain.getBlock(2);
 
