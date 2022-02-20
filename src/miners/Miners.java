@@ -37,11 +37,12 @@ public class Miners {
 	private static void shareBlock(Block block) {
 		System.out.println("Sharing block to miners...");
 		Iterator<Miner> it = getMiners().iterator();
+
+		Miner m;
 		while (it.hasNext()) {
-			Miner m = it.next();
-			// Create a copy of the block, to give to each miner
-			Block b = new Block(block);
-			m.setBlock(b);
+			m = it.next();
+			// Share a copy of the block, to each miner
+			m.setBlock(new Block(block));
 		}
 	}
 

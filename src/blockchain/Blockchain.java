@@ -56,7 +56,7 @@ public class Blockchain {
 			System.out.println("Block not valid, not added");
 			return;
 		}
-		// Block is valid, add it the blockchain
+		// Block is valid, add it to the blockchain
 		this.lastBlock = block;
 	}
 
