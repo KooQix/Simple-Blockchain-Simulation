@@ -10,12 +10,15 @@ public class Miners {
 	private static Set<Miner> miners = new HashSet<>();
 	private static int nbMiners = 5;
 
+	private Miners() {
+	}
+
 	/**
 	 * Initializes a set of nbMiners miners
 	 */
 	private static void init() {
 		for (int i = 0; i < nbMiners; i++) {
-			miners.add(new Miner("Miner" + i));
+			miners.add(new Miner("Miner" + Math.round(1000 * Math.random())));
 		}
 	}
 
@@ -53,11 +56,10 @@ public class Miners {
 	 * @param block
 	 */
 	private static void findNonce(Block block) {
-		long nonce = 0;
 
 		// Getting nonce
 		// Simulating the competition between miners to get the nonce
-		nonce = getMiner().getNonce(nonce);
+		long nonce = getMiner().getNonce(0);
 		block.setNonce(nonce);
 
 		Miner m = null;

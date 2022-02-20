@@ -20,15 +20,22 @@ public class Transaction {
 		this.receiver = receiver;
 		this.amount = amount;
 
-		// Sender signs the transaction, to ensure that he initiated the transaction
+		// Sender signs the transaction, to ensure that he initiated it
 		sender.sign(this);
 	}
 
+	/**
+	 * Create an array of 3 transactions
+	 * 
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	public static ArrayList<Transaction> bunchOfTransactions() throws NoSuchAlgorithmException {
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
 		// Each block is constituted of 3 transactions
 		for (int i = 0; i < 3; i++) {
+			// Create a new transaction
 			User sender = new User("User" + Math.round(100 * Math.random()));
 			User receiver = new User("User" + Math.round(100 * Math.random()));
 			double amount = 1000 * Math.random();

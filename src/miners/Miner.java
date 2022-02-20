@@ -21,7 +21,9 @@ public class Miner {
 	 * To simulate the competition between the miners, each miner iterates at most a
 	 * given number of times, max_it
 	 * 
-	 * @param nonce
+	 * @param nonce The nonce to start iterate from. A miner will iterate a given
+	 *              number of times from this nonce and then return the new nonce to
+	 *              pass to the next (To simulate the competition)
 	 * @return
 	 */
 	public long getNonce(long nonce) {
