@@ -1,8 +1,11 @@
 package blockchain;
 
+import java.security.NoSuchAlgorithmException;
+
 import javax.management.InvalidAttributeValueException;
 
 import miners.Miners;
+import transactions.Transaction;
 
 public class Blockchain {
 
@@ -32,8 +35,11 @@ public class Blockchain {
 	 * @param block
 	 * @throws InvalidAttributeValueException
 	 * @throws InterruptedException
+	 * @throws NoSuchAlgorithmException
 	 */
-	public void addBlock(String data) throws InvalidAttributeValueException, InterruptedException {
+	public void addBlock() throws InvalidAttributeValueException, InterruptedException, NoSuchAlgorithmException {
+		// Get a bunch of transactions that needs to be processed
+		String data = Transaction.bunchOfTransactions().toString();
 
 		if (lastBlock != null && data.equals(lastBlock.getData())) {
 			throw new InvalidAttributeValueException("ERROR: Block is a duplicate");
@@ -41,6 +47,7 @@ public class Blockchain {
 
 		int id = this.lastBlock == null ? 0 : this.lastBlock.getId();
 
+		// Create a new block with these transactions
 		Block block = new Block(id + 1, data);
 
 		// Link new last block with old last block

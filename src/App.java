@@ -10,19 +10,19 @@ public class App {
 		System.out.println("\tAdding blocks to the blockchain...\n\n");
 		Blockchain chain = new Blockchain();
 
-		chain.addBlock("First block data");
+		chain.addBlock();
 		System.out.println(chain);
 		Thread.sleep(2000);
 
-		chain.addBlock("Second block data");
+		chain.addBlock();
 		System.out.println(chain);
 		Thread.sleep(2000);
 
-		chain.addBlock("Third block data");
+		chain.addBlock();
 		System.out.println(chain);
 		Thread.sleep(2000);
 
-		chain.addBlock("Forth block data");
+		chain.addBlock();
 		System.out.println(chain);
 
 		// Create a copy of the blockchain
