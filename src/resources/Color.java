@@ -78,6 +78,12 @@ public enum Color {
 		this.label = label;
 	}
 
+	/**
+	 * Get the label of the Color
+	 * 
+	 * @param color
+	 * @return
+	 */
 	public static String valueOf(Color color) {
 		return color.label;
 	}
