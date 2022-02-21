@@ -10,21 +10,14 @@ public class App {
 		//////////////////// \\\\\\\\\\\\\\\\\\\\
 
 		Blockchain chain = new Blockchain();
+		final int N = 4;
 
-		chain.addBlock();
-		ConsoleColors.print(chain.toString(), Color.YELLOW);
-		Thread.sleep(2000);
-
-		chain.addBlock();
-		ConsoleColors.print(chain.toString(), Color.YELLOW);
-		Thread.sleep(2000);
-
-		chain.addBlock();
-		ConsoleColors.print(chain.toString(), Color.YELLOW);
-		Thread.sleep(2000);
-
-		chain.addBlock();
-		ConsoleColors.print(chain.toString(), Color.YELLOW);
+		// Create N blocks
+		for (int i = 0; i < N; i++) {
+			chain.addBlock();
+			ConsoleColors.print(chain.toString(), Color.YELLOW);
+			Thread.sleep(2000);
+		}
 
 		// Create a copy of the blockchain
 		Blockchain copy = new Blockchain(chain);
