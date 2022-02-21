@@ -2,7 +2,7 @@
 
     Written in Java, that you can play with to get a better understanding of the blockchain
 
-### Get stated
+### Get started
 
     cd bin && java App
 
