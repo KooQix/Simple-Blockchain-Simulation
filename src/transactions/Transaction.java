@@ -36,7 +36,7 @@ public class Transaction {
 		this.receiver = receiver;
 		this.amount = amount;
 
-		// Hash from message sender, receiver, amount
+		// Hash sender, receiver, amount
 		this.hashedMessage = SHA256Hash.hash(this.toString());
 
 		// Sender signs the transaction, to ensure that he initiated it

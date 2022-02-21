@@ -35,18 +35,18 @@ public class Miners {
 	}
 
 	/**
-	 * Share the block to add to the blockchain to the miners
+	 * Share the block to add to the blockchain with the miners
 	 * 
 	 * @param block
 	 */
 	private static void shareBlock(Block block) {
-		ConsoleColors.print("Sharing block to miners...", Color.CYAN);
+		ConsoleColors.print("Sharing block with miners...", Color.CYAN);
 		Iterator<Miner> it = getMiners().iterator();
 
 		Miner m;
+		// Share a copy of the block, to every miner
 		while (it.hasNext()) {
 			m = it.next();
-			// Share a copy of the block, to each miner
 			m.setBlock(new Block(block));
 		}
 	}
@@ -84,7 +84,7 @@ public class Miners {
 	}
 
 	/**
-	 * Once the nonce has been found by one miner, each miner verify if the found
+	 * Once the nonce has been found by one miner, each miner verifies if the found
 	 * nonce gives a valid hash on its own copy of the block
 	 * 
 	 * @param nonce
