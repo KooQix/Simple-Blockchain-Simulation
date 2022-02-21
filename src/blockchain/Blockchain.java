@@ -112,6 +112,7 @@ public class Blockchain {
 		}
 		// Block is valid, add it to the blockchain
 		ConsoleColors.print("Adding block to the blockchain", Color.GREEN);
+		Thread.sleep(2000);
 		this.lastBlock = block;
 	}
 
