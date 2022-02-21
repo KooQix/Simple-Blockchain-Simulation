@@ -9,3 +9,5 @@
 ### More information
 
     For a visual simulation of a blockchain, check out: https://andersbrownworth.com/blockchain/
+
+    For more information about signing and verifying a message, check out: https://itnext.io/signing-a-message-e303c2954499

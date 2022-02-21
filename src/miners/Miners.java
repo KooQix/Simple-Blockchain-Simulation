@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import blockchain.Block;
+import resources.Color;
+import resources.ConsoleColors;
 
 public class Miners {
 	private static Set<Miner> miners = new HashSet<>();
@@ -38,7 +40,7 @@ public class Miners {
 	 * @param block
 	 */
 	private static void shareBlock(Block block) {
-		System.out.println("Sharing block to miners...");
+		ConsoleColors.print("Sharing block to miners...", Color.CYAN);
 		Iterator<Miner> it = getMiners().iterator();
 
 		Miner m;
@@ -54,8 +56,9 @@ public class Miners {
 	 * block
 	 * 
 	 * @param block
+	 * @throws InterruptedException
 	 */
-	private static void findNonce(Block block) {
+	private static void findNonce(Block block) throws InterruptedException {
 
 		// Getting nonce
 		// Simulating the competition between miners to get the nonce
@@ -73,8 +76,10 @@ public class Miners {
 		}
 
 		if (m != null) {
-			System.out.println(m.getName() + " has found a nonce!");
+			ConsoleColors.print(m.getName() + " has found a nonce!", Color.GREEN_BOLD);
+			Thread.sleep(2000);
 			System.out.println("Verifying nonce...");
+			Thread.sleep(1000);
 		}
 	}
 
@@ -107,7 +112,7 @@ public class Miners {
 	 */
 	public static void mine(Block block) throws InterruptedException {
 		shareBlock(block);
-		System.out.println("Miners are mining block " + block.getId() + "...");
+		ConsoleColors.print("Miners are mining block " + block.getId() + "...", Color.CYAN);
 		Thread.sleep(4000);
 		while (!verifyBlock(block.getNonce())) {
 			findNonce(block);
