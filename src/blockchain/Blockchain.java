@@ -1,8 +1,18 @@
 package blockchain;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.management.InvalidAttributeValueException;
 
 import miners.Miners;
+import resources.Color;
+import resources.ConsoleColors;
+import transactions.Transaction;
 
 public class Blockchain {
 
@@ -27,25 +37,69 @@ public class Blockchain {
 	}
 
 	/**
+	 * Each transaction is verified (receiver verifies that the transaction has bee
+	 * signed by the sender)
+	 * 
+	 * @param transactions
+	 * @return
+	 * @throws InvalidKeyException
+	 * @throws NoSuchAlgorithmException
+	 * @throws NoSuchPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws BadPaddingException
+	 */
+	private boolean verifyTransactions(ArrayList<Transaction> transactions) throws InvalidKeyException,
+			NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+		int nb = 0;
+		for (int i = 0; i < transactions.size(); i++) {
+			if (transactions.get(i).getReceiver().verify(transactions.get(i))) {
+				nb++;
+			}
+		}
+		// If one transaction is not verified, the whole block will be rejected
+		return nb == transactions.size();
+	}
+
+	/**
 	 * Add a block to the blockchain
 	 * 
 	 * @param block
 	 * @throws InvalidAttributeValueException
 	 * @throws InterruptedException
+	 * @throws NoSuchAlgorithmException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws NoSuchPaddingException
+	 * @throws InvalidKeyException
 	 */
-	public void addBlock(String data) throws InvalidAttributeValueException, InterruptedException {
+	public void addBlock() throws InvalidAttributeValueException, InterruptedException, NoSuchAlgorithmException,
+			InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+		// Get a bunch of transactions that needs to be processed
+		ConsoleColors.print("Waiting for incoming transactions...", Color.PURPLE);
+		ArrayList<Transaction> transactions = Transaction.bunchOfTransactions();
+		ConsoleColors.print("Verifying their validity...", Color.PURPLE);
+		Thread.sleep(2000);
+
+		// Verify the validity of the transactions.
+		// Not valid => reject the whole block
+		if (!verifyTransactions(transactions))
+			return;
+
+		// Transactions have been validated, proceed to adding the block to the
+		// blockchain
+		String data = transactions.toString();
 
 		if (lastBlock != null && data.equals(lastBlock.getData())) {
 			throw new InvalidAttributeValueException("ERROR: Block is a duplicate");
 		}
-
 		int id = this.lastBlock == null ? 0 : this.lastBlock.getId();
 
+		// Create a new block with these transactions
 		Block block = new Block(id + 1, data);
 
 		// Link new last block with old last block
 		block.setPreviousBlock(this.lastBlock);
-		System.out.println("\n\n\n\n##### New block to add #####");
+		ConsoleColors.print("\n\n\n\n##### New block to add #####", Color.BLUE);
 		System.out.println(block);
 
 		// Add the block to the blockchain
@@ -53,11 +107,12 @@ public class Blockchain {
 
 		// Since we're here, the block should give a valid hash
 		if (!Block.isValidHash(block.getHash())) {
-			System.out.println("Block not valid, not added");
+			System.err.println("Block not valid, not added");
 			return;
 		}
 		// Block is valid, add it to the blockchain
-		System.out.println("Adding block to the blockchain");
+		ConsoleColors.print("Adding block to the blockchain", Color.GREEN);
+		Thread.sleep(2000);
 		this.lastBlock = block;
 	}
 
@@ -105,7 +160,7 @@ public class Blockchain {
 			sb.append(block);
 			block = block.getPreviousBlock();
 		}
-		return sb.toString();
+		return sb.toString() + "\n\n";
 	}
 
 	@Override
